@@ -17,7 +17,7 @@
   </p>
   <input type="hidden" name="active" value="1">
   <input type="hidden" name="action" value="add_subject">
-  <p><input type="submit" value="��">
+  <p><input type="submit" value="ok">
    <input type="reset" value="Clear"></p>
  </form>
 </html>
