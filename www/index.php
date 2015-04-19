@@ -29,7 +29,7 @@ if (!$db_server) die("Неможливо підключитись до MySQL: " 
    </select> 
    <select size="1" name="posada" required>
     <option disabled selected value>Посада</option>
-    <option value="ac">Асистент</option>
+    <option value="ac">Асистент</option>11
     <option value="vk">Викладач</option>
 	<option value="dc">Доцент</option>
 	<option value="pr">Професор</option>
