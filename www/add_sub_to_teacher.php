@@ -16,7 +16,7 @@ echo '</select>';
 
 echo '<h2>Вибрати предмети</h2><br>';
 
-$query_sub="SELECT * FROM subject  LIMIT 0,50";    
+$query_sub="SELECT * FROM subject where active=1 LIMIT 0,50";    
 $query_s= mysql_query($query_sub) or die ("Error:".mysql_error()); 
 
 

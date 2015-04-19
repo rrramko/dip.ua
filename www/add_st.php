@@ -72,7 +72,7 @@ echo '<b>Назва пердмету: </b>'.$su['subject_name'].'; ';
 
 echo '<h2>Добавити йому предмети</h2><br>';
 
-$query_sub="SELECT * FROM subject  LIMIT 0,50";    
+$query_sub="SELECT * FROM subject where active='1' LIMIT 0,50";    
 $query_s= mysql_query($query_sub) or die ("Error:".mysql_error()); 
 
 echo '<form name="st" method="post" action="/inc/action.php">';
