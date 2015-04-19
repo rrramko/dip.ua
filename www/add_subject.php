@@ -1,32 +1,32 @@
 <html>
 <form name="test" method="post" action="/inc/action.php">
-  <p><b>Предмет:</b><br>
+  <p><b>РџСЂРµРґРјРµС‚:</b><br>
    <input type="text" name="subject_name" size="40">
   </p>
- <p><b>Заг к-сть годин:</b><br>
+ <p><b>Р—Р°РіР°Р»СЊРЅР° РєС‹Р»СЊРєС–СЃС‚СЊ РіРѕРґРёРЅ:</b><br>
    <input type="text" name="all_hours" size="40">
   </p>
-  <p><b>Індивідуальні годин:</b><br>
+  <p><b>Р“РѕРґРёРЅ С–РЅРґРёРІС–РґСѓР°Р»СЊРЅРѕС— СЂРѕР±РѕС‚Рё:</b><br>
    <input type="text" name="ind_hours" size="40">
   </p>
-  <p><b>Лекційні годин:</b><br>
+  <p><b>Р›РµРєС†С–Р№:</b><br>
    <input type="text" name="l_hours" size="40">
   </p>
-  <p><b>Практичні годин:</b><br>
+  <p><b>РџСЂР°РєС‚РёС‡РЅРёС…:</b><br>
    <input type="text" name="pr_hours" size="40">
   </p>
-  <p><b>Семінарські годин:</b><br>
+  <p><b>РЎРµРјС–РЅР°СЂСЃСЊРєРёР№:</b><br>
    <input type="text" name="sem_hours" size="40">
   </p>
-   <p><b>Лабалаторні годин:</b><br>
+   <p><b>Р›Р°Р±РѕСЂР°С‚РѕСЂРЅРёС…:</b><br>
    <input type="text" name="lab_hours" size="40">
   </p>
-   <p><b>Студентові годин:</b><br>
+   <p><b>РЎР°РјРѕСЃС‚С–Р№РЅРѕС— СЂРѕР±РѕС‚Рё СЃС‚СѓРґРµРЅС‚Р°:</b><br>
    <input type="text" name="stud_hours" size="40">
   </p>
   <input type="hidden" name="active" value="1">
   <input type="hidden" name="action" value="add_subject">
-  <p><input type="submit" value="ОК">
+  <p><input type="submit" value="пїЅпїЅ">
    <input type="reset" value="Clear"></p>
  </form>
 </html>
