@@ -1,4 +1,4 @@
-require admin
-Authname "Basic Auth"
-Authtype Basic
-AuthUserFile "dip.ua/.htpasswd"
+AuthType Basic
+AuthName "admin"
+AuthUserFile D:/aaa/OpenServer/domains/dip.ua/www/.htpasswd
+Require valid-user
