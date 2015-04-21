@@ -17,7 +17,6 @@ while($res_t=mysql_fetch_array($query_t))
 }
 
  if (isset($_GET[id])) { 
-<<<<<<< HEAD
   if (isset($_GET['delete'])) {teacher_delete((int)$_GET[id]);}
   
    $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
@@ -27,44 +26,27 @@ while($res_t=mysql_fetch_array($query_t))
    <a href="/add_st.php?id='.$_GET[id].'&delete">    Видалити </a><br>';
    echo 'В нього стільки годин вільних: '.$tea['hour'].'<br><br>';
  
-=======
- $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
-$query_id= mysql_query($query) or die ("Error:".mysql_error()); 
-$tea=mysql_fetch_assoc($query_id);
- echo '<br>Ви вибрали викладача: '.$tea['teacher_name'].'<br>';  
->>>>>>> origin/rrramko
  $query="SELECT * FROM teach_subj  where teacher_id=".(int)$_GET[id];     
 $query_st= mysql_query($query) or die ("Error:".mysql_error()); 
-
- echo '<br><table border="1" cellpadding="5" 
-style="border-collapse: collapse; border: 1px solid black;">
-     <tr> <td><b>Назва пердмету: </b></td>';
-	 echo '<th> Індивідуальної<br>роботи: </th><th>Лекційних<br>занять:</th><th>Практичних/<br>Лабораторних<br>занять:</th></tr>';
+ echo '<table border="1">
+     <tr> <td><b>Назва пердмету: </b></td><th>';
+	 echo 'Всього годин: </th><th> Індивідуальної<br>роботи: </th><th>Лекційних<br>занять:</th><th>Практичних/<br>Лабораторних<br>занять:</th></tr>';
    
 while($res_ts=mysql_fetch_array($query_st)) 
 {  
    $l_hours_i=$l_hours_i+$res_ts['l_hours'];
    $pr_hours_i=$pr_hours_i+$res_ts['pr_hours'];
-   $ind_hours_i=$ind_hours_i+$res_ts['ind_hours'];  
-   $all=$l_hours_i+$pr_hours_i+$ind_hours_i;   
-   echo '<tr><td>'.$res_ts['subject'].'</td><td align="right">'.$res_ts['ind_hours'].'</td><td align="right">'.$res_ts['l_hours'].'</td><td align="right">'.$res_ts['pr_hours'].'</td></tr>';
+   $ind_hours_i=$ind_hours_i+$res_ts['ind_hours'];   
+   echo '<tr><td>'.$res_ts['subject'].'</td><td align="right">0</td><td align="right">'.$res_ts['ind_hours'].'</td><td align="right">'.$res_ts['l_hours'].'</td><td align="right">'.$res_ts['pr_hours'].'</td></tr>';
  
 }
-  echo '<tr><td><b>Разом: </b><br></td><td align="right">'.$ind_hours_i.'</td><td align="right">'.$l_hours_i.'</td><td align="right">'.$pr_hours_i.'</td><td align="right">'.$all.'</td></tr></table><br><br>';
+  echo '<tr><td><b>Разом: </b><br></td><td align="right"></td><td align="right">'.$ind_hours_i.'</td><td align="right">'.$l_hours_i.'</td><td align="right">'.$pr_hours_i.'</td></tr></table><br><br>';
 
 
 
  
  //оригінал даних з годинами нормально можна вивести
-<<<<<<< HEAD
  
-=======
- $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
-$query_id= mysql_query($query) or die ("Error:".mysql_error()); 
-$tea=mysql_fetch_assoc($query_id);
-// echo 'Ви вибрали викладача: '.$tea['teacher_name'].'<br><br>';
- echo 'В нього стільки годин вільних: '.$tea['hour'].'<br><br>';
->>>>>>> origin/rrramko
  echo '<br>Оригінальна кількість годин в предмета:<br>';
   $query="SELECT * FROM teach_subj  where teacher_id=".(int)$_GET[id];    
 $sub= mysql_query($query) or die ("Error:".mysql_error());
@@ -105,18 +87,8 @@ while($res_s=mysql_fetch_array($query_s))
 	if ($res_s['active']=1) {
 	echo '<tr><td><input name="subject[]" type="checkbox" value="'.$res_s['subject_name'].'">'.$res_s['subject_name'].'</td>
    <td align="right">'.$res_s['all_hours'].'</td><td align="right">'.$res_s['ind_hours'].'</td><td align="right">'.$res_s['l_hours'].'</td><td align="right">'.$res_s['pr_hours'].'</td></tr>';
-<<<<<<< HEAD
 	}
  }echo '</table>';
-=======
- }echo '</table>
-    <!--  <td> Індивідуально годин: </td><tr><td></td><td>'.$res_s['ind_hours'].'</td></tr>
-        <td> Лекційних годин:</td><td>'.$res_s['l_hours'].'</td>
-       <td> Практичних годин: </td><td>'.$res_s['pr_hours'].'</td>
-        <td> Семінари годин: </td><td>'.$res_s['sem_hours'].'</td>
-        <td> Лабалаторні годин:</td><td>'.$res_s['lab_hours'].'</td>
-       <td> Самостійне вивч годин:</td><td>'.$res_s['stud_hours'].' <br></td></tr>--> <br>';
->>>>>>> origin/rrramko
 echo '<input type="hidden" name="teacher_id" value="'.(int)$_GET[id].'"> ';
 echo '<input type="hidden" name="action" value="add_subj_to_teach"> ';
 echo '<input type="submit" value="ОК"> ';
