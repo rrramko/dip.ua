@@ -1,0 +1,4 @@
+require admin
+Authname "Basic Auth"
+Authtype Basic
+AuthUserFile "dip.ua/.htpasswd"
