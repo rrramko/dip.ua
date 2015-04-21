@@ -17,7 +17,15 @@ while($res_t=mysql_fetch_array($query_t))
 }
 
  if (isset($_GET[id])) { 
+  if (isset($_GET['delete'])) {teacher_delete((int)$_GET[id]);}
   
+   $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
+   $query_id= mysql_query($query) or die ("Error:".mysql_error()); 
+   $tea=mysql_fetch_assoc($query_id);
+   echo 'Ви вибрали викладача: '.$tea['teacher_name'].'  <a href="/add_st.php?id='.$_GET[id].'&mode=edit"> Редагувати </a>
+   <a href="/add_st.php?id='.$_GET[id].'&delete">    Видалити </a><br>';
+   echo 'В нього стільки годин вільних: '.$tea['hour'].'<br><br>';
+ 
  $query="SELECT * FROM teach_subj  where teacher_id=".(int)$_GET[id];     
 $query_st= mysql_query($query) or die ("Error:".mysql_error()); 
  echo '<table border="1">
@@ -38,11 +46,7 @@ while($res_ts=mysql_fetch_array($query_st))
 
  
  //оригінал даних з годинами нормально можна вивести
- $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
-$query_id= mysql_query($query) or die ("Error:".mysql_error()); 
-$tea=mysql_fetch_assoc($query_id);
- echo 'Ви вибрали викладача: '.$tea['teacher_name'].'<br><br>';
- echo 'В нього стільки годин вільних: '.$tea['hour'].'<br><br>';
+ 
  echo '<br>Оригінальна кількість годин в предмета:<br>';
   $query="SELECT * FROM teach_subj  where teacher_id=".(int)$_GET[id];    
 $sub= mysql_query($query) or die ("Error:".mysql_error());
@@ -71,29 +75,26 @@ echo '<tr><td>'.$su['subject_name'].'</td><td align="right">'.$su['all_hours'].'
    //це файл можна розділити код що дальше йде відповідає за добавлення предмету
 
 echo '<h2>Добавити йому предмети</h2><br>';
-
+if ($tea['hour']>0)  {
 $query_sub="SELECT * FROM subject where active='1' LIMIT 0,50";    
 $query_s= mysql_query($query_sub) or die ("Error:".mysql_error()); 
 
-echo '<form name="st" method="post" action="/inc/action.php">
+echo '<form name="st" method="post" action="add_st.php">
     <table border="1">
    <tr> <td></td><th> Всього годин: </th><th>Індивідуальної<br>роботи: </th><th>Лекційних<br>занять: </th><th> Практичних/<br>Лабораторних<br>занять: </th></tr>';
 while($res_s=mysql_fetch_array($query_s)) 
 {
+	if ($res_s['active']=1) {
 	echo '<tr><td><input name="subject[]" type="checkbox" value="'.$res_s['subject_name'].'">'.$res_s['subject_name'].'</td>
    <td align="right">'.$res_s['all_hours'].'</td><td align="right">'.$res_s['ind_hours'].'</td><td align="right">'.$res_s['l_hours'].'</td><td align="right">'.$res_s['pr_hours'].'</td></tr>';
- }echo '</table>
-    <!--  <td> Індивідуально годин: </td><tr><td></td><td>'.$res_s['ind_hours'].'</td></tr>
-        <td> Лекційних годин:</td><td>'.$res_s['l_hours'].'</td>
-       <td> Практичних годин: </td><td>'.$res_s['pr_hours'].'</td>
-        <td> Семінари годин: </td><td>'.$res_s['sem_hours'].'</td>
-        <td> Лабалаторні годин:</td><td>'.$res_s['lab_hours'].'</td>
-       <td> Самостійне вивч годин:</td><td>'.$res_s['stud_hours'].' <br></td></tr>-->';
+	}
+ }echo '</table>';
 echo '<input type="hidden" name="teacher_id" value="'.(int)$_GET[id].'"> ';
 echo '<input type="hidden" name="action" value="add_subj_to_teach"> ';
 echo '<input type="submit" value="ОК"> ';
 echo '<input type="reset" value="Clear"></FORM> ';
-
+                     }
+					 else {echo 'У викладача немає вільних годин';}
  }
 ?>
 

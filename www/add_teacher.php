@@ -2,7 +2,7 @@
 <?php
 include("/inc/connect.php");
 ?>
-<form name="test" method="post" action="/inc/action.php">
+<form name="test" method="post" action="add_teacher.php">
   <p><b>ПІБ:</b><br>
    <input type="text" name="teacher_name" size="40">
   </p>

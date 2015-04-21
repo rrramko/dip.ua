@@ -1,6 +1,5 @@
 <?php 
-include("connect.php");
-include("function.php");
+
 if(
 isset($_POST['action']) && !empty($_POST['action'])
 ){

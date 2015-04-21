@@ -15,6 +15,44 @@ function add_teacher($teacher_name,$hour)
  {echo '<center><p style="color:green;"><b>Данные добавлены!</b></p></center>';}
 }
 
+function teacher_edit($teacher_name,$hour,$id)
+{
+	 $teacher_name=mysql_real_escape_string(htmlspecialchars($teacher_name));
+	 $hour=(int)$hour;
+  $sql = 'UPDATE SET teacher_name='.$teacher_name.',hour='.$hour.' where id='.(int)$id;
+ if(!mysql_query($sql))
+ {echo mysql_error().'<center><p style="color:red;"><b>ололо помилка!</b></p></center>';}
+ else
+ {echo '<center><p style="color:green;"><b>Відредаговано його список предметів очищено!</b></p></center>';}
+
+}
+function teacher_delete($id)
+{
+$query="SELECT * FROM teach_subj  where teacher_id=".(int)$id;     
+$query_st= mysql_query($query) or die ("Error:".mysql_error()); 
+
+while($res_ts=mysql_fetch_array($query_st)) 
+{    
+   $query="SELECT * FROM subject  where subject_name='".$res_ts['subject']."'";    
+   $sub_name=mysql_query($query) or die ("Error:".mysql_error()); 
+   $su=mysql_fetch_assoc($sub_name);
+   $l_hours_i=$su['l_hours']+$res_ts['l_hours'];
+   $pr_hours_i=$su['pr_hours']+$res_ts['pr_hours'];
+   $ind_hours_i=$su['ind_hours']+$res_ts['ind_hours'];  
+   $query="UPDATE subject SET  ind_hours='".$ind_hours_i."',l_hours='".$l_hours_i."',  pr_hours='".$pr_hours_i."', active='1' where subject_name='".$res_ts['subject']."'";     
+   $query_s= mysql_query($query) or die ("Error:".mysql_error()); 
+  
+}
+
+$query="DELETE  FROM teach_subj  where teacher_id=".(int)$id;
+$query2="DELETE  FROM teacher  where id=".(int)$id;     
+mysql_query($query2) or die ("Error:".mysql_error());    
+if(!mysql_query($query))
+ {echo mysql_error().'<center><p style="color:red;"><b>ололо помилка</b></p></center>';}
+ else
+ {echo '<center><p style="color:green;"><b>Дані вдалено!</b></p></center>';} 	
+	
+}
 
 
 /**
@@ -125,7 +163,7 @@ if(empty($subject))
 		mysql_query('UPDATE  teacher SET  hour="0" WHERE  teacher.id ="'.$teacher_id.'"') or die ("Error: ".mysql_error());
 		mysql_query('UPDATE  subject SET  ind_hours="'.$reshta.'" WHERE  subject.subject_name ="'.$subject[$i].'"') or die ("Error: ".mysql_error());
 	 }
-	
+	 if ($active=1) {
       $sql = 'INSERT INTO teach_subj(teacher_id,subject,ind_hours,l_hours,pr_hours)
       VALUES("'.$teacher_id.'", "'.$subject[$i].'", "'.$ind_hours.'", "'.$l_hours.'", "'.$pr_hours.'")';
      if(!mysql_query($sql))
@@ -136,8 +174,9 @@ if(empty($subject))
      $sql2 = 'UPDATE  subject SET  active="'.$active.'" WHERE  subject.subject_name ="'.$subject[$i].'"';
      mysql_query($sql2) or die ("Error: ".mysql_error());
 	 
-	    
-    
+	 }
+    else {$sql2 = 'UPDATE  subject SET  active="0" WHERE  subject.subject_name ="'.$subject[$i].'"';
+     mysql_query($sql2) or die ("Error: ".mysql_error());}
       
     }
   }  

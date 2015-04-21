@@ -1,5 +1,8 @@
 <html>
-<form name="test" method="post" action="/inc/action.php">
+<?php
+include("/inc/connect.php");
+?>
+<form name="test" method="post" action="add_subject.php">
   <p><b>Предмет:</b><br>
    <input type="text" name="subject_name" size="40">
   </p>
