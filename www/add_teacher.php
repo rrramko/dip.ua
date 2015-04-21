@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <?php
 include("/inc/connect.php");
 ?>
