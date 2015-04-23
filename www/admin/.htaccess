@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "admin"
-AuthUserFile D:/aaa/OpenServer/domains/dip.ua/www/.htpasswd
+AuthUserFile Z:/home/dip.ua/www/.htpasswd
 Require valid-user

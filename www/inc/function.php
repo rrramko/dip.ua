@@ -10,9 +10,9 @@ function add_teacher($teacher_name,$hour)
   $sql = 'INSERT INTO teacher(teacher_name,hour)
  VALUES("'.$teacher_name.'", "'.$hour.'")';
  if(!mysql_query($sql))
- {echo mysql_error().'<center><p style="color:red;"><b>Ошибка при добавлении данных!</b></p></center>';}
+ {echo mysql_error().'<center><p style="color:red;"><b>Помилка!</b></p></center>';}
  else
- {echo '<center><p style="color:green;"><b>Данные добавлены!</b></p></center>';}
+ {echo '<center><p style="color:green;"><b>Додано!</b></p></center>';}
 }
 
 function teacher_edit($teacher_name,$hour,$id)
@@ -21,9 +21,9 @@ function teacher_edit($teacher_name,$hour,$id)
 	 $hour=(int)$hour;
   $sql = 'UPDATE SET teacher_name='.$teacher_name.',hour='.$hour.' where id='.(int)$id;
  if(!mysql_query($sql))
- {echo mysql_error().'<center><p style="color:red;"><b>ололо помилка!</b></p></center>';}
+ {echo mysql_error().'<center><p style="color:red;"><b>помилка!</b></p></center>';}
  else
- {echo '<center><p style="color:green;"><b>Відредаговано його список предметів очищено!</b></p></center>';}
+ {echo '<center><p style="color:green;"><b>Відредаговано, його список предметів очищено!</b></p></center>';}
 
 }
 function teacher_delete($id)
@@ -48,9 +48,9 @@ $query="DELETE  FROM teach_subj  where teacher_id=".(int)$id;
 $query2="DELETE  FROM teacher  where id=".(int)$id;     
 mysql_query($query2) or die ("Error:".mysql_error());    
 if(!mysql_query($query))
- {echo mysql_error().'<center><p style="color:red;"><b>ололо помилка</b></p></center>';}
+ {echo mysql_error().'<center><p style="color:red;"><b>помилка</b></p></center>';}
  else
- {echo '<center><p style="color:green;"><b>Дані вдалено!</b></p></center>';} 	
+ {echo '<center><p style="color:green;"><b>Дані видалено!</b></p></center>';}
 	
 }
 
@@ -74,15 +74,15 @@ function add_subject($subject_name,$all_hours,$ind_hours,$l_hours,$pr_hours,$act
 	$l_hours=(int)$l_hours;
 	$pr_hours=(int)$pr_hours;
 	$active=(int)$active;
-  $sql = 'INSERT INTO subject(subject_name,all_hours,ind_hours,l_hours,pr_hours,active)
+     $sql = 'INSERT INTO subject(subject_name,all_hours,ind_hours,l_hours,pr_hours,active)
  VALUES("'.$subject_name.'", "'.$all_hours.'", "'.$ind_hours.'", "'.$l_hours.'", "'.$pr_hours.'","'.$active.'")';
  $sql2 = 'INSERT INTO subject_original(subject_name,all_hours,ind_hours,l_hours,pr_hours)
  VALUES("'.$subject_name.'", "'.$all_hours.'", "'.$ind_hours.'", "'.$l_hours.'", "'.$pr_hours.'")';
  mysql_query($sql2) or die ("Error:".mysql_error());
  if(!mysql_query($sql))
- {echo mysql_error().'<center><p style="color:red;"><b>Ошибка при добавлении данных!</b></p></center>';}
+ {echo mysql_error().'<center><p style="color:red;"><b>Помилка!</b></p></center>';}
  else
- {echo '<center><p style="color:green;"><b>Данные добавлены!</b></p></center>';}
+ {echo '<center><p style="color:green;"><b>Додано!</b></p></center>';}
 }
 
 /**
@@ -93,7 +93,7 @@ function add_subj_to_teach($teacher_id,$subject)
 {
 	$teacher_id=(int)$teacher_id;
 	
-//взнаємо кількість годин у викладача	
+//взначаємо кількість годин у викладача
 $query="SELECT * FROM teacher  where id=".$teacher_id;    
 $q_hour= mysql_query($query) or die ("Error:".mysql_error()); 
 $hour_array=mysql_fetch_assoc($q_hour);
@@ -167,9 +167,9 @@ if(empty($subject))
       $sql = 'INSERT INTO teach_subj(teacher_id,subject,ind_hours,l_hours,pr_hours)
       VALUES("'.$teacher_id.'", "'.$subject[$i].'", "'.$ind_hours.'", "'.$l_hours.'", "'.$pr_hours.'")';
      if(!mysql_query($sql))
-     {echo mysql_error().'<center><p style="color:red;"><b>Ошибка при добавлении данных!</b></p></center>';}
+     {echo mysql_error().'<center><p style="color:red;"><b>Помилка!</b></p></center>';}
       else
-     {echo '<center><p style="color:green;"><b>Данные добавлены!</b></p></center>';}
+     {echo '<center><p style="color:green;"><b>Додано!</b></p></center>';}
 	 
      $sql2 = 'UPDATE  subject SET  active="'.$active.'" WHERE  subject.subject_name ="'.$subject[$i].'"';
      mysql_query($sql2) or die ("Error: ".mysql_error());
