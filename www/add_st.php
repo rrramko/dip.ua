@@ -17,13 +17,14 @@ while($res_t=mysql_fetch_array($query_t))
 }
 
  if (isset($_GET[id])) { 
-  if (isset($_GET['delete'])) {teacher_delete((int)$_GET[id],1);}
-  
+  if (isset($_GET['delete'])) {teacher_delete((int)$_GET['id'],1);}
+   
    $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
    $query_id= mysql_query($query) or die ("Error:".mysql_error()); 
    $tea=mysql_fetch_assoc($query_id);
    echo 'Ви вибрали викладача: '.$tea['teacher_name'].'  <a href="/add_st.php?id='.$_GET[id].'&edit"> Редагувати </a>
    <a href="/add_st.php?id='.$_GET[id].'&delete">    Видалити </a><br>';
+   if (isset($_GET['sub'])) {t_sub_del($_GET['id'],$_GET['sub'],$tea['hour']);}
     if (isset($_GET['edit'])) {
 		echo '<form name="teach" method="post" action="add_st.php">
   <b>ПІБ:</b><input type="text" name="teacher_name" value="'.$tea['teacher_name'].'" size="40">

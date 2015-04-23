@@ -24,10 +24,10 @@ function teacher_edit($teacher_name,$hour,$id)
  {echo mysql_error().'<center><p style="color:red;"><b>помилка!</b></p></center>';}
  else
 
- {echo '<center><p style="color:green;"><b>Відредаговано, його список предметів очищено!</b></p></center>';}
+ {echo '<center><p style="color:green;"><b>Відредаговано, його список предметів очищено!</b></p></center><script type="text/javascript">
+window.location = "add_st.php?id='.$id.'"
+</script>';}
 
-
- {echo '<center><p style="color:green;"><b>Cписок предметів очищено!</b></p></center>';}
 
 teacher_delete($id,0);
 
@@ -66,12 +66,34 @@ if(!mysql_query($query))
 
 }
 
-function t_sub_del($id,$subject){
+function t_sub_del($id,$subject,$hour){
 	$id=(int)$id;
 	$subject=mysql_real_escape_string(htmlspecialchars($subject));
-	
-	
+	$query="SELECT * FROM teach_subj  where teacher_id='".$id."'  AND subject ='".$subject."'";     
+    $query_st= mysql_query($query) or die ("Error:".mysql_error()); 
+   $subj=mysql_fetch_assoc($query_st);
+   $query="SELECT * FROM subject  where subject_name='".$subject."'";    
+   $sub_name=mysql_query($query) or die ("Error:".mysql_error()); 
+   $su=mysql_fetch_assoc($sub_name);
+   $l_hours_i=$su['l_hours']+$subj['l_hours'];
+   $pr_hours_i=$su['pr_hours']+$subj['pr_hours'];
+   $ind_hours_i=$su['ind_hours']+$subj['ind_hours'];  
+   $sum=$hour+$subj['l_hours']+$subj['pr_hours']+$subj['ind_hours'];
+   $sql = 'UPDATE teacher SET hour="'.$sum.'" where id="'.$id.'"';
+   mysql_query($sql) or die ("Error:".mysql_error()); 
+   $query="UPDATE subject SET  ind_hours='".$ind_hours_i."',l_hours='".$l_hours_i."',  pr_hours='".$pr_hours_i."', active='1' where subject_name='".$subject."'";     
+   mysql_query($query) or die ("Error:".mysql_error()); 
+   $query="DELETE FROM teach_subj  where teacher_id='".$id."' AND subject ='".$subject."'";     
+     if(!mysql_query($query))
+ {echo mysql_error().'<center><p style="color:red;"><b>помилка</b></p></center>';}
+ else
+ {echo '<center><p style="color:green;"><b>Виконано!</b></p></center><script type="text/javascript">
+window.location = "add_st.php?id='.$id.'"
+</script>';}
 }
+
+	
+
 
 
 /**
@@ -189,7 +211,9 @@ if(empty($subject))
      if(!mysql_query($sql))
      {echo mysql_error().'<center><p style="color:red;"><b>Помилка!</b></p></center>';}
       else
-     {echo '<center><p style="color:green;"><b>Додано!</b></p></center>';}
+     {echo '<center><p style="color:green;"><b>Додано!</b></p></center><script type="text/javascript">
+window.location = "add_st.php?id='.$teacher_id.'"
+</script>';}
 	 
      $sql2 = 'UPDATE  subject SET  active="'.$active.'" WHERE  subject.subject_name ="'.$subject[$i].'"';
      mysql_query($sql2) or die ("Error: ".mysql_error());
