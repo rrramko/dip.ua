@@ -19,7 +19,7 @@ function teacher_edit($teacher_name,$hour,$id)
 {
 	 $teacher_name=mysql_real_escape_string(htmlspecialchars($teacher_name));
 	 $hour=(int)$hour;
-  $sql = 'UPDATE SET teacher_name='.$teacher_name.',hour='.$hour.' where id='.(int)$id;
+  $sql = 'UPDATE teacher SET teacher_name="'.$teacher_name.'",hour="'.$hour.'" where id="'.(int)$id.'"';
  if(!mysql_query($sql))
  {echo mysql_error().'<center><p style="color:red;"><b>помилка!</b></p></center>';}
  else

@@ -22,22 +22,34 @@ while($res_t=mysql_fetch_array($query_t))
    $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
    $query_id= mysql_query($query) or die ("Error:".mysql_error()); 
    $tea=mysql_fetch_assoc($query_id);
-   echo 'Ви вибрали викладача: '.$tea['teacher_name'].'  <a href="/add_st.php?id='.$_GET[id].'&mode=edit"> Редагувати </a>
+   echo 'Ви вибрали викладача: '.$tea['teacher_name'].'  <a href="/add_st.php?id='.$_GET[id].'&edit"> Редагувати </a>
    <a href="/add_st.php?id='.$_GET[id].'&delete">    Видалити </a><br>';
+    if (isset($_GET['edit'])) {
+		echo '<form name="teach" method="post" action="add_st.php">
+  <b>ПІБ:</b><input type="text" name="teacher_name" value="'.$tea['teacher_name'].'" size="40">
+  <b>Заг к-сть годин:</b>  <input type="text" name="hour" value="'.$tea['hour'].'" size="40">
+  <input type="hidden" name="id" value="'.$_GET[id].'">
+  <input type="hidden" name="action" value="teacher_edit">
+  <input type="submit" value="ОК">
+  <input type="reset" value="Clear">
+	</form><a href="/add_st.php?id='.$_GET[id].'"> Сховати </a><br>';
+
+	}
    echo 'В нього стільки годин вільних: '.$tea['hour'].'<br><br>';
  
  $query="SELECT * FROM teach_subj  where teacher_id=".(int)$_GET[id];     
 $query_st= mysql_query($query) or die ("Error:".mysql_error()); 
  echo '<table border="1">
      <tr> <td><b>Назва пердмету: </b></td><th>';
-	 echo 'Всього годин: </th><th> Індивідуальної<br>роботи: </th><th>Лекційних<br>занять:</th><th>Практичних/<br>Лабораторних<br>занять:</th></tr>';
+	 echo 'Всього годин: </th><th> Індивідуальної<br>роботи: </th><th>Лекційних<br>занять:</th><th>Практичних/<br>Лабораторних<br>занять:</th><th>Видалити:</th></tr>';
    
 while($res_ts=mysql_fetch_array($query_st)) 
 {  
    $l_hours_i=$l_hours_i+$res_ts['l_hours'];
    $pr_hours_i=$pr_hours_i+$res_ts['pr_hours'];
    $ind_hours_i=$ind_hours_i+$res_ts['ind_hours'];   
-   echo '<tr><td>'.$res_ts['subject'].'</td><td align="right">0</td><td align="right">'.$res_ts['ind_hours'].'</td><td align="right">'.$res_ts['l_hours'].'</td><td align="right">'.$res_ts['pr_hours'].'</td></tr>';
+   echo '<tr><td>'.$res_ts['subject'].'</td><td align="right">0</td><td align="right">'.$res_ts['ind_hours'].'</td><td align="right">'.$res_ts['l_hours'].'</td>
+   <td align="right">'.$res_ts['pr_hours'].'</td><td align="right"><a href="/add_st.php?id='.$_GET[id].'&sub='.$res_ts['subject'].'"> Видалити </a></td></tr>';
  
 }
   echo '<tr><td><b>Разом: </b><br></td><td align="right"></td><td align="right">'.$ind_hours_i.'</td><td align="right">'.$l_hours_i.'</td><td align="right">'.$pr_hours_i.'</td></tr></table><br><br>';
