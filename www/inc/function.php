@@ -132,7 +132,7 @@ if(empty($subject))
 	 $query="SELECT * FROM subject  where subject_name='".$subject[$i]."'";    
      $sub_name=mysql_query($query) or die ("Error:".mysql_error()); 
      $su=mysql_fetch_assoc($sub_name);
-	 
+	 if ($hour>0) {
 	 if ($su['l_hours']<$hour&&$hour>0) {
 		 $l_hours=$su['l_hours'];
 		 $hour=$hour-$su['l_hours'];
@@ -193,7 +193,8 @@ if(empty($subject))
 	 
      $sql2 = 'UPDATE  subject SET  active="'.$active.'" WHERE  subject.subject_name ="'.$subject[$i].'"';
      mysql_query($sql2) or die ("Error: ".mysql_error());
-	 
+	
+	 }
 	if ($su['ind_hours']==0&&$su['pr_hours']==0&&$su['l_hours']==0) {
      $sql2 = 'UPDATE  subject SET  active="0" WHERE  subject.subject_name ="'.$subject[$i].'"';
 	mysql_query($sql2) or die ("Error: ".mysql_error());	   }
