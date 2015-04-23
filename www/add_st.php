@@ -33,7 +33,6 @@ while($res_t=mysql_fetch_array($query_t))
   <input type="submit" value="ОК">
   <input type="reset" value="Clear">
 	</form><a href="/add_st.php?id='.$_GET[id].'"> Сховати </a><br>';
-
 	}
    echo 'В нього стільки годин вільних: '.$tea['hour'].'<br><br>';
  

@@ -66,6 +66,13 @@ if(!mysql_query($query))
 
 }
 
+function t_sub_del($id,$subject){
+	$id=(int)$id;
+	$subject=mysql_real_escape_string(htmlspecialchars($subject));
+	
+	
+}
+
 
 /**
  * @param $subject_name
@@ -125,8 +132,8 @@ if(empty($subject))
 	 $query="SELECT * FROM subject  where subject_name='".$subject[$i]."'";    
      $sub_name=mysql_query($query) or die ("Error:".mysql_error()); 
      $su=mysql_fetch_assoc($sub_name);
-	 if ($hour>0) {
-	 if ($su['l_hours']<$hour) {
+	 
+	 if ($su['l_hours']<$hour&&$hour>0) {
 		 $l_hours=$su['l_hours'];
 		 $hour=$hour-$su['l_hours'];
 		 $active=0;
@@ -142,7 +149,7 @@ if(empty($subject))
 		mysql_query('UPDATE  teacher SET  hour="0" WHERE  teacher.id ="'.$teacher_id.'"') or die ("Error: ".mysql_error());
 		mysql_query('UPDATE  subject SET  l_hours="'.$reshta.'" WHERE  subject.subject_name ="'.$subject[$i].'"') or die ("Error: ".mysql_error());
 	 }
-	 if ($su['pr_hours']<$hour) {
+	 if ($su['pr_hours']<$hour&&$hour>0) {
 		 $pr_hours=$su['pr_hours'];
 		 $hour=$hour-$su['pr_hours'];
 		 $active=0;
@@ -159,7 +166,7 @@ if(empty($subject))
 		mysql_query('UPDATE  teacher SET  hour="0" WHERE  teacher.id ="'.$teacher_id.'"') or die ("Error: ".mysql_error());
 		mysql_query('UPDATE  subject SET  pr_hours="'.$reshta.'" WHERE  subject.subject_name ="'.$subject[$i].'"') or die ("Error: ".mysql_error());
 	 }
-	 if ($su['ind_hours']<$hour) {
+	 if ($su['ind_hours']<$hour&&$hour>0) {
 		 $ind_hours=$su['ind_hours'];
 		 $hour=$hour-$su['ind_hours'];
 		 $active=0;
@@ -176,7 +183,7 @@ if(empty($subject))
 		mysql_query('UPDATE  teacher SET  hour="0" WHERE  teacher.id ="'.$teacher_id.'"') or die ("Error: ".mysql_error());
 		mysql_query('UPDATE  subject SET  ind_hours="'.$reshta.'" WHERE  subject.subject_name ="'.$subject[$i].'"') or die ("Error: ".mysql_error());
 	 }
-	 if ($active=1) {
+	
       $sql = 'INSERT INTO teach_subj(teacher_id,subject,ind_hours,l_hours,pr_hours)
       VALUES("'.$teacher_id.'", "'.$subject[$i].'", "'.$ind_hours.'", "'.$l_hours.'", "'.$pr_hours.'")';
      if(!mysql_query($sql))
@@ -187,10 +194,9 @@ if(empty($subject))
      $sql2 = 'UPDATE  subject SET  active="'.$active.'" WHERE  subject.subject_name ="'.$subject[$i].'"';
      mysql_query($sql2) or die ("Error: ".mysql_error());
 	 
-	 }
-    else {$sql2 = 'UPDATE  subject SET  active="0" WHERE  subject.subject_name ="'.$subject[$i].'"';
-     mysql_query($sql2) or die ("Error: ".mysql_error());}
-	 }  
+	if ($su['ind_hours']==0&&$su['pr_hours']==0&&$su['l_hours']==0) {
+     $sql2 = 'UPDATE  subject SET  active="0" WHERE  subject.subject_name ="'.$subject[$i].'"';
+	mysql_query($sql2) or die ("Error: ".mysql_error());	   }
     }
   }  
 }
