@@ -17,7 +17,7 @@ while($res_t=mysql_fetch_array($query_t))
 }
 
  if (isset($_GET[id])) { 
-  if (isset($_GET['delete'])) {teacher_delete((int)$_GET[id]);}
+  if (isset($_GET['delete'])) {teacher_delete((int)$_GET[id],1);}
   
    $query="SELECT * FROM teacher  where id=".(int)$_GET[id];    
    $query_id= mysql_query($query) or die ("Error:".mysql_error()); 

@@ -23,11 +23,13 @@ function teacher_edit($teacher_name,$hour,$id)
  if(!mysql_query($sql))
  {echo mysql_error().'<center><p style="color:red;"><b>ололо помилка!</b></p></center>';}
  else
- {echo '<center><p style="color:green;"><b>Відредаговано його список предметів очищено!</b></p></center>';}
-
+ {echo '<center><p style="color:green;"><b>Cписок предметів очищено!</b></p></center>';}
+teacher_delete($id,0);
 }
-function teacher_delete($id)
+
+function teacher_delete($id,$act)
 {
+
 $query="SELECT * FROM teach_subj  where teacher_id=".(int)$id;     
 $query_st= mysql_query($query) or die ("Error:".mysql_error()); 
 
@@ -45,13 +47,15 @@ while($res_ts=mysql_fetch_array($query_st))
 }
 
 $query="DELETE  FROM teach_subj  where teacher_id=".(int)$id;
-$query2="DELETE  FROM teacher  where id=".(int)$id;     
-mysql_query($query2) or die ("Error:".mysql_error());    
+  
 if(!mysql_query($query))
  {echo mysql_error().'<center><p style="color:red;"><b>ололо помилка</b></p></center>';}
  else
- {echo '<center><p style="color:green;"><b>Дані вдалено!</b></p></center>';} 	
-	
+ {echo '<center><p style="color:green;"><b>Виконано!</b></p></center>';}
+ 	if ($act==1) {
+      $query2="DELETE  FROM teacher  where id=".(int)$id;     
+	  mysql_query($query2) or die ("Error:".mysql_error()); 
+	}
 }
 
 
@@ -113,7 +117,8 @@ if(empty($subject))
 	 $query="SELECT * FROM subject  where subject_name='".$subject[$i]."'";    
      $sub_name=mysql_query($query) or die ("Error:".mysql_error()); 
      $su=mysql_fetch_assoc($sub_name);
-	 if ($su['l_hours']<$hour&&$hour>0) {
+	 if ($hour>0) {
+	 if ($su['l_hours']<$hour) {
 		 $l_hours=$su['l_hours'];
 		 $hour=$hour-$su['l_hours'];
 		 $active=0;
@@ -129,7 +134,7 @@ if(empty($subject))
 		mysql_query('UPDATE  teacher SET  hour="0" WHERE  teacher.id ="'.$teacher_id.'"') or die ("Error: ".mysql_error());
 		mysql_query('UPDATE  subject SET  l_hours="'.$reshta.'" WHERE  subject.subject_name ="'.$subject[$i].'"') or die ("Error: ".mysql_error());
 	 }
-	 if ($su['pr_hours']<$hour&&$hour>0) {
+	 if ($su['pr_hours']<$hour) {
 		 $pr_hours=$su['pr_hours'];
 		 $hour=$hour-$su['pr_hours'];
 		 $active=0;
@@ -146,7 +151,7 @@ if(empty($subject))
 		mysql_query('UPDATE  teacher SET  hour="0" WHERE  teacher.id ="'.$teacher_id.'"') or die ("Error: ".mysql_error());
 		mysql_query('UPDATE  subject SET  pr_hours="'.$reshta.'" WHERE  subject.subject_name ="'.$subject[$i].'"') or die ("Error: ".mysql_error());
 	 }
-	 if ($su['ind_hours']<$hour&&$hour>0) {
+	 if ($su['ind_hours']<$hour) {
 		 $ind_hours=$su['ind_hours'];
 		 $hour=$hour-$su['ind_hours'];
 		 $active=0;
@@ -177,7 +182,7 @@ if(empty($subject))
 	 }
     else {$sql2 = 'UPDATE  subject SET  active="0" WHERE  subject.subject_name ="'.$subject[$i].'"';
      mysql_query($sql2) or die ("Error: ".mysql_error());}
-      
+	 }  
     }
   }  
 }
