@@ -23,7 +23,12 @@ function teacher_edit($teacher_name,$hour,$id)
  if(!mysql_query($sql))
  {echo mysql_error().'<center><p style="color:red;"><b>помилка!</b></p></center>';}
  else
+
  {echo '<center><p style="color:green;"><b>Відредаговано, його список предметів очищено!</b></p></center>';}
+
+
+ {echo '<center><p style="color:green;"><b>Cписок предметів очищено!</b></p></center>';}
+
 teacher_delete($id,0);
 
 }

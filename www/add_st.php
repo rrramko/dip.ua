@@ -86,7 +86,7 @@ echo '<tr><td>'.$su['subject_name'].'</td><td align="right">'.$su['all_hours'].'
  
    //це файл можна розділити код що дальше йде відповідає за добавлення предмету
 
-echo '<h2>Добавити йому предмети</h2><br>';
+echo '<h2>Додати предмети</h2><br>';
 if ($tea['hour']>0)  {
 $query_sub="SELECT * FROM subject where active='1' LIMIT 0,50";    
 $query_s= mysql_query($query_sub) or die ("Error:".mysql_error()); 
