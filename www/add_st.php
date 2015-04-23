@@ -91,7 +91,6 @@ while($res_s=mysql_fetch_array($query_s))
  }echo '</table>';
 echo '<input type="hidden" name="teacher_id" value="'.(int)$_GET[id].'"> ';
 echo '<input type="hidden" name="action" value="add_subj_to_teach"> ';
-echo '<input type="hidden" name="active" value="0">';
 echo '<input type="submit" value="ОК"> ';
 echo '<input type="reset" value="Clear"></FORM> ';
                      }
