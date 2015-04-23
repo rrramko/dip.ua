@@ -23,11 +23,15 @@ function teacher_edit($teacher_name,$hour,$id)
  if(!mysql_query($sql))
  {echo mysql_error().'<center><p style="color:red;"><b>помилка!</b></p></center>';}
  else
+<<<<<<< HEAD
 
  {echo '<center><p style="color:green;"><b>Відредаговано, його список предметів очищено!</b></p></center>';}
 
 
  {echo '<center><p style="color:green;"><b>Cписок предметів очищено!</b></p></center>';}
+=======
+ {echo '<center><p style="color:green;"><b>Відредаговано, його список предметів очищено!</b></p></center>';}
+>>>>>>> origin/rrramko
 teacher_delete($id,0);
 
 }
@@ -57,9 +61,12 @@ if(!mysql_query($query))
  {echo mysql_error().'<center><p style="color:red;"><b>помилка</b></p></center>';}
  else
 
+<<<<<<< HEAD
  {echo '<center><p style="color:green;"><b>Дані видалено!</b></p></center>';}
 	
 
+=======
+>>>>>>> origin/rrramko
  {echo '<center><p style="color:green;"><b>Виконано!</b></p></center>';}
  	if ($act==1) {
       $query2="DELETE  FROM teacher  where id=".(int)$id;     
