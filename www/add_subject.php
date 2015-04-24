@@ -3,13 +3,13 @@
 include("/inc/connect.php");
 ?>
 <form name="test" method="post" action="add_subject.php">
-  <p><b>Предмет:</b><br>
+   <p><b>Предмет:</b><br>
    <input type="text" name="subject_name" size="40">
   </p>
- <p><b>Загальна кількість годин:</b><br>
+<p><b>Загальна кількість годин:</b><br>
    <input type="text" name="all_hours" size="40">
   </p>
-  <p><b>Годин індивідуальної роботи:</b><br>
+    <p><b>Годин індивідуальної роботи:</b><br>
    <input type="text" name="ind_hours" size="40">
   </p>
   <p><b>Лекційних годин:</b><br>
