@@ -15,7 +15,7 @@ while ($res_t = mysql_fetch_array($query_t)) {
     echo '<a href="/add_st.php?id=' . $res_t['id'] . '">' . $res_t['teacher_name'] . '</a><br>';
 }
 
-if (isset($_GET[id])) {
+if (isset($_GET['id'])) {
     if (isset($_GET['delete'])) {
         teacher_delete((int)$_GET['id'], 1);
     }
@@ -23,8 +23,8 @@ if (isset($_GET[id])) {
     $query = "SELECT * FROM teacher  where id=" . (int)$_GET[id];
     $query_id = mysql_query($query) or die ("Error:" . mysql_error());
     $tea = mysql_fetch_assoc($query_id);
-    echo 'Ви вибрали викладача: ' . $tea['teacher_name'] . '  <a href="/add_st.php?id=' . $_GET[id] . '&edit"> Редагувати </a>
-   <a href="/add_st.php?id=' . $_GET[id] . '&delete">    Видалити </a><br>';
+    echo 'Ви вибрали викладача: ' . $tea['teacher_name'] . '  <a href="/add_st.php?id=' . $_GET['id'] . '&edit"> Редагувати </a>
+   <a href="/add_st.php?id=' . $_GET['id'] . '&delete">    Видалити </a><br>';
     if (isset($_GET['sub'])) {
         t_sub_del($_GET['id'], $_GET['sub'], $tea['hour']);
     }
@@ -51,7 +51,7 @@ if (isset($_GET[id])) {
         $pr_hours_i = $pr_hours_i + $res_ts['pr_hours'];
         $ind_hours_i = $ind_hours_i + $res_ts['ind_hours'];
         echo '<tr><td>' . $res_ts['subject'] . '</td><td align="right">0</td><td align="right">' . $res_ts['ind_hours'] . '</td><td align="right">' . $res_ts['l_hours'] . '</td>
-   <td align="right">' . $res_ts['pr_hours'] . '</td><td align="right"><a href="/add_st.php?id=' . $_GET[id] . '&sub=' . $res_ts['subject'] . '"> Видалити </a></td></tr>';
+   <td align="right">' . $res_ts['pr_hours'] . '</td><td align="right"><a href="/add_st.php?id=' . $_GET['id'] . '&sub=' . $res_ts['subject'] . '"> Видалити </a></td></tr>';
 
     }
     echo '<tr><td><b>Разом: </b><br></td><td align="right"></td><td align="right">' . $ind_hours_i . '</td><td align="right">' . $l_hours_i . '</td><td align="right">' . $pr_hours_i . '</td></tr></table><br><br>';

@@ -74,6 +74,33 @@ function teacher_delete($id, $act)
     }
 
 }
+function sub_delete($sub)
+{
+	$subject = mysql_real_escape_string(htmlspecialchars($sub));
+	//видаляєм з оріджінал
+	$sql = "DELETE FROM subject_original  where subject_name='" . $subject."'";
+    mysql_query($sql) or die ("Error:" . mysql_error());
+	//рахуємо години які були використані і в яких викладачах і зразу апдейтим ці години викладачу назад
+	$sql = "SELECT * FROM teach_subj  where subject ='" . $subject . "'";
+	$sql_s= mysql_query($sql) or die ("Error:" . mysql_error());
+
+while ($subj = mysql_fetch_array($sql_s)) {
+	$hour=$subj['l_hours']+$subj['pr_hours']+$subj['ind_hours'];
+	$query = "SELECT * FROM teacher  where id='" .  $subj['teacher_id'] . "'";
+    $t_hour = mysql_query($query) or die ("Error:" . mysql_error());
+    $su = mysql_fetch_assoc($t_hour);
+	$hour=$su['hour']+$hour;
+	$sql = 'UPDATE teacher SET hour="' .$hour . '" where id="' . $subj['teacher_id'] . '"';
+    mysql_query($sql) or die ("Error:" . mysql_error());
+}
+//видаляєм решту даних з таблиць
+$sql = "DELETE FROM teach_subj  where subject='" . $subject."'";
+mysql_query($sql) or die ("Error:" . mysql_error());
+$sql = "DELETE FROM subject  where subject_name='" . $subject."'";
+mysql_query($sql) or die ("Error:" . mysql_error());
+}
+
+
 
 /**
  * @param $id
