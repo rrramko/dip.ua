@@ -4,7 +4,7 @@ if (isset($_GET['delete'])) {
         sub_delete($_GET['sub']);
     }
 
- echo '<h2>Видалити предмет:</h2><br>';
+ echo '<h2>Р’РёРґР°Р»РёС‚Рё РїСЂРµРґРјРµС‚:</h2><br>';
 $query_sub = "SELECT * FROM subject_original  LIMIT 0,50";
 
 $query_s = mysql_query($query_sub) or die ("Error:" . mysql_error());
@@ -13,17 +13,17 @@ $query_s = mysql_query($query_sub) or die ("Error:" . mysql_error());
     
 
     echo '<table border="1">
-     <tr> <td><b>Назва пердмету: </b></td><th>';
-    echo 'Всього годин: </th><th> Індивідуальної<br>роботи: </th><th>Лекційних<br>занять:</th><th>Практичних/<br>Лабораторних<br>занять:</th><th>Видалити:</th></tr>';
+     <tr> <td><b>РќР°Р·РІР° РїРµСЂРґРјРµС‚Сѓ: </b></td><th>';
+    echo 'Р’СЃСЊРѕРіРѕ РіРѕРґРёРЅ: </th><th> Р†РЅРґРёРІС–РґСѓР°Р»СЊРЅРѕС—<br>СЂРѕР±РѕС‚Рё: </th><th>Р›РµРєС†С–Р№РЅРёС…<br>Р·Р°РЅСЏС‚СЊ:</th><th>РџСЂР°РєС‚РёС‡РЅРёС…/<br>Р›Р°Р±РѕСЂР°С‚РѕСЂРЅРёС…<br>Р·Р°РЅСЏС‚СЊ:</th><th>Р’РёРґР°Р»РёС‚Рё:</th></tr>';
     while ($su = mysql_fetch_array($query_s)) {
         $l_hours = $l_hours + $su['l_hours'];
         $pr_hours = $pr_hours + $su['pr_hours'];
         $ind_hours = $ind_hours + $su['ind_hours'];
-        echo '<tr><td>' . $su['subject_name'] . '</td><td align="right">' . $su['all_hours'] . '</td><td align="right">' . $su['ind_hours'] . '</td><td align="right">' . $su['l_hours'] . '</td><td align="right">' . $su['pr_hours'] . '</td><td align="right"><a href="/sub_edit.php?sub=' . $su['subject_name'] . '&delete"> Видалити </a></td></tr>';
+        echo '<tr><td>' . $su['subject_name'] . '</td><td align="right">' . $su['all_hours'] . '</td><td align="right">' . $su['ind_hours'] . '</td><td align="right">' . $su['l_hours'] . '</td><td align="right">' . $su['pr_hours'] . '</td><td align="right"><a href="/sub_edit.php?sub=' . $su['subject_name'] . '&delete"> Р’РёРґР°Р»РёС‚Рё </a></td></tr>';
 
     }
 
-    echo '<tr><td><b>Разом: </b><br></td><td align="right"></td><td align="right">' . $ind_hours . '</td><td align="right">' . $l_hours . '</td><td align="right">' . $pr_hours . '</td></tr></table>';
+    echo '<tr><td><b>Р Р°Р·РѕРј: </b><br></td><td align="right"></td><td align="right">' . $ind_hours . '</td><td align="right">' . $l_hours . '</td><td align="right">' . $pr_hours . '</td></tr></table>';
 
 
 
